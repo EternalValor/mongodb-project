@@ -4,9 +4,16 @@ module.exports = {
   index(req, res, next) {
     const { query } = req;
 
-    Publication.find(query)
-      .then(publications => res.send(publications))
-      .catch(next);
+    if(Object.keys(query).length === 1 && query.title) {
+      Publication.find({title: {$regex: query.title}})
+        .then(publications => res.send(publications))
+        .catch(next);
+    } else {
+      Publication.find(query)
+        .then(publications => res.send(publications))
+        .catch(next);
+    }
+
     console.log(query);
   },
 
@@ -20,6 +27,7 @@ module.exports = {
   edit(req, res, next) {
     const publicationId = req.params.id;
     const publicationProps = req.body;
+    console.log(publicationProps);
 
     Publication.update({_id: publicationId}, publicationProps)
       .then(() => Publication.findById({_id: publicationId}))

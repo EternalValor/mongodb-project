@@ -1,0 +1,141 @@
+.publication {
+  width: 70rem;
+  height: 12rem;
+  border: 1px solid #ccc;
+  padding: 1rem 2rem;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, .25);
+  margin-bottom: 1.5rem;
+  position: relative;
+  transition: all .35s;
+  overflow: scroll;
+  word-wrap: break-word;
+}
+
+.publication::-webkit-scrollbar {
+  width: 3px;
+  height: 0;
+}
+
+/* Track */
+.publication::-webkit-scrollbar-track {
+  background: #fff; 
+}
+
+/* Handle */
+.publication::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+.publication::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+.publication--expanded {
+  transition: all .35s;
+  height: 37rem;
+}
+
+.publication__heading {
+  margin-bottom: .75rem;
+  padding-right: 3rem;
+}
+
+.publication__body {
+  font-size: 1.4rem;
+}
+
+.publication__body__field {
+  font-size: 1.6rem;
+  margin-bottom: .75rem;
+  font-weight: 300;
+  color: #111;
+}
+
+.field-title {
+  text-transform: capitalize;
+  color: #000;
+  text-decoration: underline;
+}
+
+.arrow {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: solid #777;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  position: absolute;
+  top: 1rem;
+  right: 2.5rem;
+  transform: rotate(45deg);
+  transition: all .35s;
+}
+
+.arrow:hover {
+  cursor: pointer;
+}
+
+.arrow--up {
+  transform: rotate(-135deg);
+  top: 1.25rem;
+  transition: all .35s;
+}
+
+.publication__buttons {
+  padding-bottom: .5rem;
+  font-size: 2rem;
+  position: relative;
+}
+
+.delete:hover {
+  cursor: pointer;
+}
+
+.update:hover {
+  cursor: pointer;
+}
+
+.btn {
+  width: 10rem;
+  padding: .85rem 1.5rem;
+  margin-left: 1rem;
+  background-color: #007AEF;
+  color: #FFFFFF;
+  outline: none;
+  border: none;
+  border-radius: .2rem;
+  font-size: 1.6rem;
+  opacity: 0;
+}
+
+.btn--delete {
+  background-color: #000;
+}
+
+.btn--show {
+  opacity: 1;
+  transition: all .5s;
+}
+
+.done-btn {
+  display: inline-block;
+  position: absolute;
+  top: .45rem;
+  font-size: 1.4rem;
+  background: none;
+  border: none;
+  position: absolute;
+  top: 1.45rem;
+  left: 9.5rem;
+  cursor: pointer;
+}
+
+.mt-2 {
+  margin-top: 2rem;
+}
+
+.input-text {
+  padding: .4rem 1rem;
+  width: 85%;
+}
