@@ -18,15 +18,10 @@ class Search extends React.Component {
 
     return (
       <div>
-        <form className="form" onSubmit={(e) => this.props.search(e, this.state.name)}>
-  
-          <input className="search" type="text" placeholder="Search" name="name" onChange={this.onChange} />
+        <form className="form" onSubmit={(e) => this.props.search(e, this.props.query, this.props.history.push)}>
+          <input className="search" type="text" placeholder="Search" name="title" onChange={this.props.onSearchChange} />
           <button className="search-btn" >Search</button>
         </form>
-
-        <div>
-          {this.props.publications[0].authors}
-        </div>
       </div>
     );
   }

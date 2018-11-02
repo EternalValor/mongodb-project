@@ -1,5 +1,75 @@
+.results {
+  display: flex;
+}
+
+
 .publications {
   width: 70rem;
-  margin: 0 auto;
+  margin: 0 15rem;
   margin-top: 5rem;
+}
+
+.side-bar-container {
+  flex-basis: 23%;
+}
+
+.side-bar {
+  width: 100%;
+  max-height: 40rem;
+  margin-top: 5.5rem;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 .4rem .4rem rgba(0,0,0, .25);
+  background: #fff;
+  overflow: scroll;
+}
+
+
+.side-bar::-webkit-scrollbar {
+  width: 3px;
+  height: 0;
+}
+
+/* Track */
+.side-bar::-webkit-scrollbar-track {
+  background: #fff; 
+}
+
+/* Handle */
+.side-bar::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+.side-bar::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+.side-bar__heading {
+  font-size: 1.7rem;
+  margin-bottom: 1.5rem;
+}
+
+.pubType {
+  font-size: 1.4rem;
+  position: relative;
+  margin-bottom: 1.25rem;
+}
+
+.pubType:hover {
+  color: rgba(0, 123, 255, 0.8);
+  cursor: pointer;
+}
+
+.pubType:active {
+  color: rgb(0, 123, 255);
+}
+
+.pubType-count {
+  position: absolute;
+  right: 0;
+}
+
+.no-results {
+  font-size: 2rem;
+  margin: 0 auto;
 }

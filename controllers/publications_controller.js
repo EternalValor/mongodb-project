@@ -3,18 +3,14 @@ const Publication = require('../models/Publication');
 module.exports = {
   index(req, res, next) {
     const { query } = req;
-
-    if(Object.keys(query).length === 1 && query.title) {
-      Publication.find({title: {$regex: query.title}})
-        .then(publications => res.send(publications))
-        .catch(next);
-    } else {
-      Publication.find(query)
-        .then(publications => res.send(publications))
-        .catch(next);
-    }
-
     console.log(query);
+    !!query.title ?
+      Publication.find({...query, title: {$regex: query.title}})
+        .then(publications => res.send(publications))
+        .catch(next)
+    : Publication.find(query)
+        .then(publications => res.send(publications))
+        .catch(next)
   },
 
   create(req, res, next) {
@@ -40,6 +36,13 @@ module.exports = {
 
     Publication.remove({_id: publicationId})
       .then(publication => res.send(publication))
+      .catch(next);
+  },
+
+  aggregate(req, res, next) {
+    Publication.aggregate([{$group: {_id: '$type', count: {$sum: 1}}}])
+      .sort({_id: 1})
+      .then(counts => res.send(counts))
       .catch(next);
   }
 }

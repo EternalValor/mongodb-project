@@ -56,7 +56,7 @@ const publication = (props) => {
           props.expanded ? 
             props.beingUpdated !== props.index ?
               <div className="mt-2">
-                <div className="publication__body__field" ><span className="field-title">type</span>: {props.publication.type}</div>
+                <div className="publication__body__field" ><span className="field-title">type</span>: {props.types[`${props.publication.type}`]}</div>
                 {
                   Object.keys(props.publication).map((field, index) =>
                     exclude.indexOf(field) === -1 ?
@@ -84,12 +84,7 @@ const publication = (props) => {
                   }}>
                   <div className="publication__body__field" >
                     <span className="field-title">type</span>:&nbsp;
-                    <input 
-                      type="number"
-                      name="type" 
-                      value={props.updatedPub.type}
-                      onChange={props.inputChange}
-                      />
+                    {props.types[`${props.publication.type}`]}
                   </div>
                   {
                     Object.keys(props.publication).map((field, index) =>
@@ -142,7 +137,7 @@ const publication = (props) => {
                   }
                   <button className="done-btn">Done</button>
                 </form>
-            : <div>type: {props.publication.type}</div>
+            : <div>Type: {props.types[`${props.publication.type}`]}</div>
         }
       </div>
     </div>
