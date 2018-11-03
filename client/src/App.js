@@ -36,6 +36,7 @@ class App extends Component {
     e.preventDefault();
 
     console.log('[QUERY] ', query);
+    push('/results');
     axios.get('/api/publications', {
       params: query
     })
@@ -44,7 +45,6 @@ class App extends Component {
       this.setState({ publications: pubs.data });
       this.countTypes();
     });
-    push('/results');
   }
 
   delete = (id) => {
@@ -96,7 +96,7 @@ class App extends Component {
         res.data.forEach(count => {
           newTypesCount[count._id] = count.count;
         });
-        this.setState({typesCount: newTypesCount, query: []});
+        this.setState({typesCount: newTypesCount});
       })
   }
 

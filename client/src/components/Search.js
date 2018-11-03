@@ -31,7 +31,7 @@ class Search extends React.Component {
           </svg>&nbsp;
             MongoProject<br/><span className="logo-subtext">BD Avancee - UCD</span>
         </div>
-        <form className="form" onSubmit={(e) => this.props.search(e, this.props.query, this.props.history.push)}>
+        <form className="form" onSubmit={(e) => {this.props.search(e, this.props.query, this.props.history.push); console.log('[SEARCH QUERY] ', this.props.query)}}>
           <input className="search" type="text" placeholder="Search" name="title" onChange={this.props.onSearchChange} />
           <button className="search-btn" >Search</button>
         </form>
