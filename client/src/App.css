@@ -12,6 +12,12 @@ html {
   background: #fcfcfc;;
 }
 
+@media (max-width: 1200px) {
+  html {
+    font-size: 54%;
+  }
+}
+
 body {
   box-sizing: border-box;
   padding: 3rem;

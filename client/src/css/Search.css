@@ -1,5 +1,12 @@
+.header {
+  position: relative;
+}
+
 .form {
   text-align: center;
+  display: inline-block;
+  margin-left: 50%;
+  transform: translateX(-50%);
 }
 
 
@@ -34,6 +41,7 @@
   width: 10rem;
   padding: .85rem 1.5rem;
   margin-left: 1rem;
+  /* margin-right: 4.5rem; */
   background-color: #007AEF;
   color: #FFFFFF;
   outline: none;
@@ -48,4 +56,38 @@
 
 .search-btn:active {
   background-color: rgba(7, 135, 255, .85);
+}
+
+.add-btn {
+  width: 10rem;
+  padding: .85rem 1.5rem;
+  position: absolute;
+  top: 0; 
+  left: calc(50% + 37rem);
+  text-align: center;
+  text-decoration: none;
+  background-color: #FF6633;
+  color: #FFFFFF;
+  font-size: 1.6rem;
+}
+
+.logo {
+  position: absolute;
+  font-size: 2.5rem;
+  font-weight: 600;
+  left: 4%;
+  color: #FF6633;
+  line-height: 1rem;
+  cursor: pointer;
+}
+
+.logo-subtext {
+  font-size: 1.2rem;
+  display: inline-block;
+  margin-left:  3.9rem;
+  color: #7F7F7F;
+}
+
+.leaf-icon {
+  margin-bottom: -.5rem;
 }

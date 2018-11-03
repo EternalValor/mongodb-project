@@ -78,7 +78,8 @@ const publication = (props) => {
               </div>  
             :
                 <form onSubmit={(e) => {
-                    props.updatedPub.IF = document.querySelector("input[name='IF']").value;
+                    e.preventDefault();
+                    if(props.updatedPub.IF) props.updatedPub.IF = document.querySelector("input[name='IF']").value;
                     props.updateHandler(e, props.publication._id, props.updatedPub);
                     if(props.beingUpdated === props.index) props.update(-1, {});
                   }}>

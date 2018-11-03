@@ -3,6 +3,7 @@ import axios from 'axios';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Results from './components/Results';
 import Home from './components/Home';
+import AddPub from './components/AddPub';
 import './App.css';
 
 class App extends Component {
@@ -34,16 +35,14 @@ class App extends Component {
   search = (e, query, push) => { 
     e.preventDefault();
 
+    console.log('[QUERY] ', query);
     axios.get('/api/publications', {
       params: query
     })
     .then(pubs => {
       console.log(pubs.data);
-      console.log(query)
-      // if(pubs.data.length) {
-        this.setState({ publications: pubs.data });
-        this.countTypes();
-      // }
+      this.setState({ publications: pubs.data });
+      this.countTypes();
     });
     push('/results');
   }
@@ -68,6 +67,16 @@ class App extends Component {
       })
   }
 
+  addPublication = (e, pub, push) => {
+    e.preventDefault();
+
+    axios.post('/api/publications', {...pub})
+      .then(res => {
+        console.log('Successfully added ' + res.data.title);
+      });
+    push('/');
+  }
+
   countTypes = () => {
     this.setState({typesCount: []});
     this.state.publications.forEach(pub => {
@@ -87,7 +96,7 @@ class App extends Component {
         res.data.forEach(count => {
           newTypesCount[count._id] = count.count;
         });
-        this.setState({typesCount: newTypesCount});
+        this.setState({typesCount: newTypesCount, query: []});
       })
   }
 
@@ -141,6 +150,13 @@ class App extends Component {
                                   search={this.search}
                                   onSearchChange={this.onSearchChange}
                                   query={this.state.query} />}  />
+            <Route 
+              path="/add-publication"
+              render={props => <AddPub {...props}
+                                        search={this.search}
+                                        query={this.state.query}
+                                        onSearchChange={this.onSearchChange}
+                                        addPublication={this.addPublication} />} />
           </Switch>
         </Router>
       </div>
