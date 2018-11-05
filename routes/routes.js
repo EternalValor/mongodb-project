@@ -4,6 +4,7 @@ module.exports = (app) => {
   
   app.get('/api/publications', PublicationsController.index);
   app.get('/api/publications/count', PublicationsController.aggregate);
+  app.get('/api/publications/adv', PublicationsController.advIndex);
   app.post('/api/publications', PublicationsController.create);
   app.put('/api/publications/:id', PublicationsController.edit);
   app.delete('/api/publications/:id', PublicationsController.delete);

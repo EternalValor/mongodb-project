@@ -73,3 +73,36 @@
   font-size: 2rem;
   margin: 0 auto;
 }
+
+.results-pager {
+  font-size: 1.6rem;
+  position: relative;
+  text-align: center;
+  margin: 4rem auto;
+}
+
+.left-arrow {
+  position: absolute;
+  top: .4rem;
+  left: 5rem;
+  width: 1rem;
+  height: 1rem;
+  border: solid black;
+  border-width: 0 0 1px 1px;
+  transform: rotate(45deg);
+  display: inline-block;
+  cursor: pointer;
+}
+
+.right-arrow {
+  position: absolute;
+  top: .4rem;
+  right: 5rem;
+  width: 1rem;
+  height: 1rem;
+  border: solid black;
+  border-width: 1px 1px 0 0;
+  transform: rotate(45deg);
+  display: inline-block;
+  cursor: pointer;
+}

@@ -22,3 +22,7 @@ body {
   box-sizing: border-box;
   padding: 3rem;
 }
+
+.App {
+  position: relative;
+}

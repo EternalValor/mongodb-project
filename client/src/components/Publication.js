@@ -19,7 +19,10 @@ const publication = (props) => {
           className="delete"
           style={{"width":'24px', "height": '24px'}} 
           viewBox="0 0 24 24"
-          onClick={() => props.delete(props.publication._id)}>
+          onClick={() => {
+            props.delete(props.publication._id);
+            props.showPopup(`${props.publication.title.slice(0, 15)}... successfully deleted!`, true)
+          }}>
           <path 
             fill="#f96d6d" 
             d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
@@ -59,18 +62,20 @@ const publication = (props) => {
                 <div className="publication__body__field" ><span className="field-title">type</span>: {props.types[`${props.publication.type}`]}</div>
                 {
                   Object.keys(props.publication).map((field, index) =>
-                    exclude.indexOf(field) === -1 ?
-                      props.publication[field].length !== 0 ?
-                        <div 
-                          key={field}
-                          className="publication__body__field" >
-                          <span className="field-title">{field}</span>:&nbsp;
-                          { field !== 'pages' ? 
-                                typeof props.publication[field] === "object" ?  
-                                    props.publication[field].join(", ") : props.publication[field]
-                            : `${props.publication[field].begin} - ${props.publication[field].end}`
-                          }
-                        </div>
+                    field !== '__v' ?
+                      exclude.indexOf(field) === -1 ?
+                        props.publication[field].length !== 0 ?
+                          <div 
+                            key={field}
+                            className="publication__body__field" >
+                            <span className="field-title">{field}</span>:&nbsp;
+                            { field !== 'pages' ? 
+                                  typeof props.publication[field] === "object" ?  
+                                      props.publication[field].join(", ") : props.publication[field]
+                              : `${props.publication[field].begin} - ${props.publication[field].end}`
+                            }
+                          </div>
+                        : null
                       : null
                     : null
                   )
@@ -82,56 +87,62 @@ const publication = (props) => {
                     if(props.updatedPub.IF) props.updatedPub.IF = document.querySelector("input[name='IF']").value;
                     props.updateHandler(e, props.publication._id, props.updatedPub);
                     if(props.beingUpdated === props.index) props.update(-1, {});
+                    props.showPopup(`${props.updatedPub.title.slice(0, 25)}... successfully edited!`, false);
                   }}>
                   <div className="publication__body__field" >
-                    <span className="field-title">type</span>:&nbsp;
+                    <span className="field-title">Type</span>:&nbsp;
                     {props.types[`${props.publication.type}`]}
                   </div>
                   {
                     Object.keys(props.publication).map((field, index) =>
-                      exclude.indexOf(field) === -1 ?
-                        props.publication[field].length !== 0 ?
-                          <div 
-                            key={field}
-                            className="publication__body__field" >
-                            <span className="field-title">{field}</span>:&nbsp;
-                            { field !== 'pages' ? 
-                                  typeof props.publication[field] === "object" ?  
-                                      <input
-                                        type="text"
-                                        name={field}
-                                        value={props.updatedPub[field].join(", ")}
-                                        onChange={props.inputChange} 
-                                        className="input-text" />
-                                      : 
-                                      field !== 'IF' ?
-                                        <input
-                                          type={typeof props.publication[field]}
-                                          name={field}
-                                          value={props.updatedPub[field]}
-                                          onChange={props.inputChange}
-                                          className="input-text" />
-                                        :
+                      field !== '__v' ?
+                        exclude.indexOf(field) === -1 ?
+                          props.publication[field].length !== 0 ?
+                            <div 
+                              key={index}
+                              className="publication__body__field" >
+                              <span className="field-title">{field}</span>:&nbsp;
+                              { field !== 'pages' ? 
+                                    typeof props.publication[field] === "object" ?  
+                                      <span className="input-text-array">
                                         <input
                                           type="text"
                                           name={field}
-                                          defaultValue={props.updatedPub[field]}
+                                          value={props.updatedPub[field].join(", ")}
+                                          onChange={props.inputChange} 
                                           className="input-text" />
-                              : <span> &nbsp;
-                                  Begin: <input
+                                          <br/>
+                                      </span>
+                                        : 
+                                        field !== 'IF' ?
+                                          <input
+                                            type={typeof props.publication[field]}
+                                            name={field}
+                                            value={props.updatedPub[field]}
+                                            onChange={props.inputChange}
+                                            className="input-text" />
+                                          :
+                                          <input
+                                            type="text"
+                                            name={field}
+                                            defaultValue={props.updatedPub[field]}
+                                            className="input-text" />
+                                : <span> &nbsp;
+                                    Begin: <input
+                                              type="number"
+                                              name="begin"
+                                              value={props.updatedPub[field].begin}
+                                              onChange={props.inputChange} /> 
+                                    &nbsp;&nbsp;
+                                    End: <input
                                             type="number"
-                                            name="begin"
-                                            value={props.updatedPub[field].begin}
+                                            name="end"
+                                            value={props.updatedPub[field].end}
                                             onChange={props.inputChange} /> 
-                                  &nbsp;&nbsp;
-                                  End: <input
-                                          type="number"
-                                          name="end"
-                                          value={props.updatedPub[field].end}
-                                          onChange={props.inputChange} /> 
-                                </span>
-                            }
-                          </div>
+                                  </span>
+                              }
+                            </div>
+                          : null
                         : null
                       : null
                     )

@@ -1,0 +1,71 @@
+.addpub { 
+  width: 70rem;
+  margin: 7.5rem auto;
+}
+
+.addpub-heading {
+  font-size: 2.3rem;
+  color: #2c2c2c;
+  margin-bottom: 3rem;
+}
+
+.type-select {
+  padding: .65rem 1.2rem;
+  background: none;
+  font-size: 1.5rem;
+  outline: none;
+  margin-bottom: 2rem;
+  border-radius: 3px;  
+}
+
+.addpub-form {
+  position: relative;
+}
+
+.input-title {
+  display: inline-block;
+  width: 11.5rem;
+  font-size: 1.6rem;
+  text-transform: capitalize;
+  text-decoration: underline;
+}
+
+.pages-input-title {
+  display: inline-block;
+  width: 6rem;
+  font-size: 1.6rem;
+}
+
+.addpub-input {
+  font-size: 1.4rem;
+  padding: .65rem 1.2rem;
+  margin-bottom: 1.5rem;
+  width: 45rem;
+  border: 1px solid #777;
+  border-radius: 3px;  
+}
+
+.addpub-pages-input {
+  font-size: 1.4rem;
+  padding: .65rem 1.2rem;
+  margin-bottom: 1.5rem;
+  margin-right: 1.5rem;
+  width: 15.5rem;
+  border: 1px solid #777;
+  border-radius: 2px;  
+}
+
+.addpub-btn {
+  width: 10rem;
+  padding: .85rem 1.5rem;
+  margin-top: 2rem;
+  background-color: #007AEF;
+  color: #FFFFFF;
+  outline: none;
+  border: none;
+  border-radius: .2rem;
+  font-size: 1.6rem;
+  position: absolute;
+  right: 13.3rem;
+  cursor: pointer;
+}

@@ -58,8 +58,13 @@ class Results extends React.Component {
                 <div 
                   key={index}
                   className="pubType"
-                  onClick={ e =>
-                    this.props.query !== [] ? this.props.search(e, {...this.props.query, type: index+1}, this.props.history.push) : this.props.search(e, {type: index+1}, this.props.history.push)
+                  onClick={ e => {
+                    e.preventDefault();
+                    this.props.history.push('/results');
+                    
+                    !!this.props.query ? this.props.advSearch({...this.props.query, type: index+1}) : this.props.advSearch({type: index+1});
+                    !!this.props.query ? this.props.setQuery({...this.props.query, type: index+1}) : this.props.setQuery({type: index+1});
+                  }
                   }>
                   {this.props.types[field].length > 55 ? `${this.props.types[field].slice(0, 55)}...` : this.props.types[field]}
                   <span className="pubType-count">
@@ -87,10 +92,16 @@ class Results extends React.Component {
                         inputChange={this.onChange} 
                         updatedPub={this.state.updatedPub}
                         updateHandler={this.props.updateHandler}
-                        types={this.props.types} />
+                        types={this.props.types}
+                        showPopup={this.props.showPopup} />
                         )
                   : <div className="no-results">Oops we couldn't retrieve any results, please try again.</div>
                 }
+                <div className="results-pager">
+                  <span className="left-arrow" onClick={this.props.pageLeft}>&nbsp;</span>
+                  {`${this.props.from} - ${this.props.to} of ${this.props.totalCount}`}
+                  <span className="right-arrow" onClick={this.props.pageRight}>&nbsp;</span>
+                </div>
           </div>
         </div>
       </div>

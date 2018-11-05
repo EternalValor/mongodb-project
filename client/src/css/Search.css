@@ -41,13 +41,13 @@
   width: 10rem;
   padding: .85rem 1.5rem;
   margin-left: 1rem;
-  /* margin-right: 4.5rem; */
   background-color: #007AEF;
   color: #FFFFFF;
   outline: none;
   border: none;
   border-radius: .2rem;
   font-size: 1.6rem;
+  cursor: pointer;
 }
 
 .search-btn:hover {
@@ -90,4 +90,122 @@
 
 .leaf-icon {
   margin-bottom: -.5rem;
+}
+
+.search-container {
+  transition: all .3s;
+}
+
+.search-container--hidden {
+  margin-top: -6.5rem;
+}
+
+.adv-search-container {
+  position: relative;
+  transition: all .3s;
+}
+
+.adv-search-container--shown {
+  box-shadow: 0 -5px 10px inset rgba(0, 0, 0, .25);
+  width: 100vw;
+  margin-left: -3rem;
+}
+
+.adv-search-btn {
+  margin-top: 1.5rem;
+  margin-left: calc(50% - 25rem);
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.adv-search-btn--hidden {
+  display: none;
+}
+
+.adv-search-form {
+  width: 70rem;
+  margin: 2rem auto;
+  visibility: visible;
+}
+
+.adv-search-form--hidden {
+  display: none;
+}
+
+.adv-search-heading {
+  padding-top: 1.5rem;
+  font-size: 2.3rem;
+  color: #2c2c2c;
+  margin-bottom: 3rem;
+}
+
+.adv-form-btn {
+  display: inline-block;
+  margin-right: 2rem;
+  margin-bottom: 2rem;
+  width: 10rem;
+  padding: .85rem 1.5rem;
+  margin-top: 2rem;
+  background-color: #007AEF;
+  color: #FFFFFF;
+  outline: none;
+  border: none;
+  border-radius: .2rem;
+  font-size: 1.6rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+.adv-form-btn--orange {
+  background-color: #ff6633;
+}
+
+.adv-type-select {
+  display: block;
+  padding: .65rem 1.2rem;
+  background: none;
+  font-size: 1.5rem;
+  outline: none;
+  margin-bottom: 2rem;
+  border-radius: 3px;  
+}
+
+.adv-input-title {
+  display: inline-block;
+  width: 11.5rem;
+  font-size: 1.6rem;
+  text-transform: capitalize;
+  text-decoration: underline;
+}
+
+.adv-input {
+  font-size: 1.4rem;
+  padding: .65rem 1.2rem;
+  margin-bottom: 1.5rem;
+  width: 45rem;
+  border: 1px solid #777;
+  border-radius: 3px;  
+}
+
+
+.adv-input-array::before {
+  content: '* Please fill in the different values seperated by ", " (comma and a space)';
+  color: red;
+  font-size: 1.3rem;
+}
+
+.adv-number-input {
+  font-size: 1.4rem;
+  padding: .65rem 1.2rem;
+  margin-bottom: 1.5rem;
+  margin-right: 1.5rem;
+  width: 15.5rem;
+  border: 1px solid #777;
+  border-radius: 2px; 
+}
+
+.adv-number-title {
+  display: inline-block;
+  width: 6rem;
+  font-size: 1.6rem;
 }

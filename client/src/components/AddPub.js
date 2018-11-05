@@ -1,5 +1,6 @@
 import React from 'react';
 import Search from './Search';
+import '../css/AddPub.css';
 
 
 class AddPub extends React.Component {
@@ -76,7 +77,7 @@ class AddPub extends React.Component {
         name: "Publications dans des actes de congrès scientifiques",
         fields: {
           authors: "text",
-          mettingName: "text",
+          meetingName: "text",
           location: "text",
           date: "text",
           url: "text"
@@ -108,7 +109,7 @@ class AddPub extends React.Component {
           authors: "text",
           advisor: "text",
           jury: "text",
-          dat: "text"
+          date: "text"
         }
       },
       10: {
@@ -174,6 +175,7 @@ class AddPub extends React.Component {
       newPub.type = this.state.selectedType;
       this.props.addPublication(e, newPub, this.props.history.push);
     } else this.props.addPublication(e, {...this.state.pubToAdd, type: this.state.selectedType}, this.props.history.push);
+    this.props.showPopup(`${this.state.pubToAdd.title.slice(0, 25)}... successfully added!!`, false);
     console.log('[pubToAdd] ', this.state.pubToAdd);
   }
 
@@ -181,67 +183,92 @@ class AddPub extends React.Component {
     return (
       <div>
         <Search {...this.props} search={this.props.search} />
-        <select className="type-select" onClick={this.onSelectClick} defaultValue="">
-          <option value="" disabled>Select your option</option>
-          {
-            Object.keys(this.state.types).map((type, index) => 
-              <option key={index} value={type} >
-                {this.state.types[type].name}
-              </option>
-            )
-          }
-        </select>
-        <form onSubmit={this.onSubmit}>
-          {
-            this.state.selectedType > 0 ?
-              <div>
-                Title: <input 
-                    type="text" 
-                    name="title" 
-                    value={this.state.pubToAdd.title ? `${this.state.pubToAdd.title}` : ''}
-                    onChange={this.onChange}/>
-              </div>
-              : null
-          }
-
-          {
-            this.state.selectedType > 0 ?
-              Object.keys(this.state.types[`${this.state.selectedType}`].fields).map( (field, index) =>
-                <div key={index}>
-                  {field}:
-                  {
-                    field !== 'pages' ?
-                      <input 
-                        type={this.state.types[`${this.state.selectedType}`].fields[field]}
-                        name={field}
-                        value={
-                          this.state.pubToAdd[field] ? 
-                          this.state.isArray.indexOf(field) === -1 ?
-                            `${this.state.pubToAdd[field]}` 
-                            : this.state.pubToAdd[field].join(", ")
-                          : ''
-                        }
-                        onChange={this.onChange}  />
-                    : <span> &nbsp;
-                        Begin: <input
-                                  type="number"
-                                  name="begin"
-                                  value={this.state.pubToAdd[field] ? this.state.pubToAdd[field].begin : 0}
-                                  onChange={this.onChange} /> 
-                        &nbsp;&nbsp;
-                        End: <input
-                                type="number"
-                                name="end"
-                                value={this.state.pubToAdd[field] ? this.state.pubToAdd[field].end : 0}
-                                onChange={this.onChange} /> 
-                      </span>
-                  }
-                </div>
+        <div  className="addpub">
+          <h1 className="addpub-heading">Add Publication</h1>
+          <select className="type-select" onClick={this.onSelectClick} defaultValue="">
+            <option value="" disabled>Select Publication Type</option>
+            {
+              Object.keys(this.state.types).map((type, index) => 
+                <option key={index} value={type} className="type-select__option">
+                  {this.state.types[type].name}
+                </option>
               )
-            : null
-          }
-          {this.state.selectedType > 0 ? <button>done</button> : null}
-        </form>
+            }
+          </select>
+          <form onSubmit={this.onSubmit} className="addpub-form">
+            {
+              this.state.selectedType > 0 ?
+                <div>
+                  <span className="input-title">Title: </span><input 
+                      type="text" 
+                      name="title" 
+                      value={this.state.pubToAdd.title ? `${this.state.pubToAdd.title}` : ''}
+                      onChange={this.onChange}
+                      className="addpub-input"
+                      required />
+                </div>
+                : null
+            }
+
+            {
+              this.state.selectedType > 0 ?
+                Object.keys(this.state.types[`${this.state.selectedType}`].fields).map( (field, index) =>
+                  <div key={index}>
+                    <span className="input-title">{field === 'fundingOrganisation' ? 'Organisation' : field}: </span>
+                    {
+                      field !== 'pages' ?
+                        this.state.isArray.indexOf(field) === - 1 ?
+                          <input 
+                            type={this.state.types[`${this.state.selectedType}`].fields[field]}
+                            name={field}
+                            value={
+                              this.state.pubToAdd[field] ? 
+                              this.state.isArray.indexOf(field) === -1 ?
+                                `${this.state.pubToAdd[field]}` 
+                                : this.state.pubToAdd[field].join(", ")
+                              : ''
+                            }
+                            onChange={this.onChange}
+                            className="addpub-input"  />
+                            : <span className="adv-input-array">
+                                <input 
+                                  type={this.state.types[`${this.state.selectedType}`].fields[field]}
+                                  name={field}
+                                  value={
+                                    this.state.pubToAdd[field] ? 
+                                    this.state.isArray.indexOf(field) === -1 ?
+                                      `${this.state.pubToAdd[field]}` 
+                                      : this.state.pubToAdd[field].join(", ")
+                                    : ''
+                                  }
+                                  onChange={this.onChange}
+                                  className="addpub-input"  />
+                              </span>
+                      : <span>
+                          <span className="pages-input-title">Begin: </span>
+                                  <input
+                                    type="number"
+                                    name="begin"
+                                    value={this.state.pubToAdd[field] ? this.state.pubToAdd[field].begin : 0}
+                                    onChange={this.onChange}
+                                    className="addpub-pages-input" /> 
+                          &nbsp;&nbsp;
+                          <span className="pages-input-title">End: </span>
+                                <input
+                                  type="number"
+                                  name="end"
+                                  value={this.state.pubToAdd[field] ? this.state.pubToAdd[field].end : 0}
+                                  onChange={this.onChange}
+                                  className="addpub-pages-input" /> 
+                        </span>
+                    }
+                  </div>
+                )
+              : null
+            }
+            {this.state.selectedType > 0 ? <button className="addpub-btn" >Done</button> : null}
+          </form>
+        </div>
       </div>
     );
   }

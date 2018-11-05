@@ -19,8 +19,13 @@ const home = (props) => {
                 <div 
                   key={index}
                   className="pubType"
-                  onClick={ e =>
-                    !!props.query ? props.search(e, {...props.query, type: index+1}, props.history.push) : props.search(e, {type: index+1}, props.history.push)
+                  onClick={ e => {
+                    e.preventDefault();
+                    props.history.push('/results');
+                    
+                    !!props.query ? props.search({...props.query, type: index+1}) : props.search  ({type: index+1});
+                    !!props.query ? props.setQuery({...props.query, type: index+1}) : props.setQuery({type: index+1});
+                  }
                   }>
                   {props.types[field].length > 55 ? `${props.types[field].slice(0, 55)}...` : props.types[field]}
                   <span className="pubType-count">

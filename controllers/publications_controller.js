@@ -4,13 +4,86 @@ module.exports = {
   index(req, res, next) {
     const { query } = req;
     console.log(query);
+    const skip = parseInt(query.skip);
+    const limit = parseInt(query.limit);
+    delete query.skip;
+    delete query.limit;
+    console.log(query);
     !!query.title ?
       Publication.find({...query, title: {$regex: query.title}})
-        .then(publications => res.send(publications))
+        .skip(skip)
+        .limit(limit)
+        .then(publications => {
+          Publication.find({...query, title: {$regex: query.title}})
+            .count()
+            .then( count => res.send([...publications, count]) );
+        })
         .catch(next)
     : Publication.find(query)
-        .then(publications => res.send(publications))
+        .skip(skip)
+        .limit(limit)
+        .then(publications => {
+          Publication.find(query)
+            .count()
+            .then( count => res.send([...publications, count]) );
+        })
         .catch(next)
+  },
+
+  advIndex(req, res, next) {
+    const { query } = req;
+    const skip = parseInt(query.skip);
+    const limit = parseInt(query.limit);
+    delete query.skip;
+    delete query.limit;
+
+    advQuery = {};
+    Object.keys(query).map(field => {
+      if(field.includes(' from') || field.includes(' to')) {
+        if(field.includes(' from')) {
+          if(advQuery[field.split(" ")[0]]) advQuery[field.split(" ")[0]]["$gte"] = parseInt(query[field]);
+          else {
+            advQuery[field.split(" ")[0]] = {
+              $gte: 0,
+              $lte: Infinity
+            };
+            advQuery[field.split(" ")[0]]["$gte"] = parseInt(query[field]);
+          }
+        } else {
+          if(advQuery[field.split(" ")[0]]) advQuery[field.split(" ")[0]]["$lte"] = parseInt(query[field]);
+          else {
+            advQuery[field.split(" ")[0]] = {
+              $gte: 0,
+              $lte: 0
+            };
+            advQuery[field.split(" ")[0]]["$lte"] = parseInt(query[field]);
+          }
+        }
+      } else {
+        if(field === 'type') advQuery[field] = parseInt(query[field]);
+        else {
+          if(typeof query[field] === typeof []) {
+            console.log(query[field]);
+            advQuery[field] = {};
+            advQuery[field]["$all"] = query[field];
+          } else {
+            advQuery[field] = {};
+            advQuery[field]["$regex"] = query[field];
+          }
+        }
+      }
+    })
+
+    Publication.find(advQuery)
+      .skip(skip)
+      .limit(limit)
+      .then(publications => {
+        Publication.find(advQuery)
+          .count()
+          .then( count => res.send([...publications, count]));
+      })
+      .catch(next);
+    // res.send(advQuery);
   },
 
   create(req, res, next) {

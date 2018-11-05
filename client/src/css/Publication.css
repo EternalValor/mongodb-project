@@ -140,3 +140,9 @@
   padding: .4rem 1rem;
   width: 85%;
 }
+
+.input-text-array::before {
+  content: '* Please fill in the different values seperated by ", " (comma and a space)';
+  color: red;
+  font-size: 1.3rem;
+}

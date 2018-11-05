@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Results from './components/Results';
 import Home from './components/Home';
 import AddPub from './components/AddPub';
+import Popup from './components/Popup';
 import './App.css';
 
 class App extends Component {
@@ -11,8 +12,8 @@ class App extends Component {
   state = {
     publications: [
       {
-        type: 1,
-        title: 'Hello World'
+        type: -1,
+        title: ''
       }
     ],
     types: {
@@ -29,22 +30,42 @@ class App extends Component {
       11: "Conventions signées "
     },
     typesCount: [],
-    query: {}
+    query: {},
+    skip: 0,
+    limit: 3,
+    totalCount: -1,
+    popupShown: false,
+    popupMessage: 'Title added successfully.'
   }
 
-  search = (e, query, push) => { 
-    e.preventDefault();
-
+  search = (query, skip = 0) => { 
+    console.log('[SKIPVAL] ', skip)
+    
+    this.setState({skip});
     console.log('[QUERY] ', query);
-    push('/results');
     axios.get('/api/publications', {
-      params: query
+      params: {...query, skip, limit: this.state.limit}
     })
     .then(pubs => {
+      const count = pubs.data.pop();
       console.log(pubs.data);
+      this.setState({totalCount: count});
       this.setState({ publications: pubs.data });
       this.countTypes();
     });
+  }
+
+  advSearch = (query, skip = 0) => {
+    this.setState({skip});
+    axios.get('/api/publications/adv', {
+      params: {...query, skip, limit: this.state.limit}
+    })
+      .then(pubs => {
+        const count = pubs.data.pop();
+        this.setState({totalCount: count});
+        this.setState({ publications: pubs.data });
+        this.countTypes();
+      })
   }
 
   delete = (id) => {
@@ -74,6 +95,7 @@ class App extends Component {
       .then(res => {
         console.log('Successfully added ' + res.data.title);
       });
+    this.setState({query: {}});
     push('/');
   }
 
@@ -122,10 +144,52 @@ class App extends Component {
     console.log(query);
   }
 
+  resetQuery = () => {
+    this.setState({query: {}});
+  }
+
+  setQuery = (query) => {
+    this.setState({query});
+  }
+
+  pageRight = () => {
+    let skip = this.state.skip;
+    if(this.state.skip + this.state.limit < this.state.totalCount) {
+      skip = this.state.skip + this.state.limit;
+    }
+    this.setState({skip});
+    console.log('[pageRight QUERY] ', this.state.query, this.state.skip);
+    this.advSearch(this.state.query, skip);
+  }
+
+  pageLeft = () => {
+    let skip = this.state.skip;
+    if(this.state.skip - this.state.limit >= 0) {
+      skip = this.state.skip - this.state.limit;
+    }
+    this.setState({skip});
+    console.log('[pageRight QUERY] ', this.state.query, this.state.skip);
+    this.advSearch(this.state.query, skip);
+  }
+
+  showPopup = (message, del) => {
+    if(del) {
+      this.setState({popupMessage: message, popupShown: true, popupRed: true});
+    } else {
+      this.setState({popupMessage: message, popupShown: true, popupRed: false});
+    }
+    setTimeout(() => {
+      this.setState({popupShown: false})
+    }, 3000);
+  }
+
   render() {
     return (
       <div className="App">   
-        {/* <Search search={this.search} publications={this.state.publications} /> */}
+        <Popup 
+          shown={this.state.popupShown}
+          message={this.state.popupMessage}
+          popupRed={this.state.popupRed} />
         <Router>
 
           <Switch>
@@ -137,8 +201,11 @@ class App extends Component {
                                   typesCount={this.state.typesCount}
                                   aggregate={this.aggregateTypesCount}
                                   search={this.search}
+                                  advSearch={this.advSearch}
                                   onSearchChange={this.onSearchChange}
-                                  query={this.state.query} />} />
+                                  query={this.state.query}
+                                  resetQuery={this.resetQuery}
+                                  setQuery={this.setQuery} />} />
             <Route 
               path="/results"
               render={props => <Results {...props}
@@ -148,15 +215,28 @@ class App extends Component {
                                   types={this.state.types}
                                   typesCount={this.state.typesCount}
                                   search={this.search}
+                                  advSearch={this.advSearch}
                                   onSearchChange={this.onSearchChange}
-                                  query={this.state.query} />}  />
+                                  query={this.state.query}
+                                  resetQuery={this.resetQuery}
+                                  setQuery={this.setQuery}
+                                  totalCount={this.state.totalCount}
+                                  from={this.state.skip + 1}
+                                  to={this.state.skip + this.state.publications.length}
+                                  pageRight={this.pageRight}
+                                  pageLeft={this.pageLeft}
+                                  showPopup={this.showPopup} />}  />
             <Route 
               path="/add-publication"
               render={props => <AddPub {...props}
                                         search={this.search}
+                                        advSearch={this.advSearch}
                                         query={this.state.query}
                                         onSearchChange={this.onSearchChange}
-                                        addPublication={this.addPublication} />} />
+                                        addPublication={this.addPublication}
+                                        resetQuery={this.resetQuery}
+                                        setQuery={this.setQuery}
+                                        showPopup={this.showPopup} />} />
           </Switch>
         </Router>
       </div>
