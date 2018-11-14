@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const app = express();
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://oth:oth123@ds231242.mlab.com:31242/mongodb-project', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost/ucdBiblio', { useNewUrlParser: true });
 
 app.use(bodyParser.json());
 

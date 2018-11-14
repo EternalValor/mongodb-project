@@ -23,7 +23,8 @@ const home = (props) => {
                     e.preventDefault();
                     props.history.push('/results');
                     
-                    !!props.query ? props.search({...props.query, type: index+1}) : props.search  ({type: index+1});
+                    // !!props.query ? props.search({...props.query, type: index+1}) : props.search  ({type: index+1});
+                    props.search({type: index+1});
                     !!props.query ? props.setQuery({...props.query, type: index+1}) : props.setQuery({type: index+1});
                   }
                   }>

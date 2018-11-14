@@ -9,16 +9,17 @@ module.exports = {
     delete query.skip;
     delete query.limit;
     console.log(query);
+
     !!query.title ?
-      Publication.find({...query, title: {$regex: query.title}})
-        .skip(skip)
-        .limit(limit)
-        .then(publications => {
-          Publication.find({...query, title: {$regex: query.title}})
-            .count()
-            .then( count => res.send([...publications, count]) );
-        })
-        .catch(next)
+      Publication.find({$text: { $search: query.title } })
+      .skip(skip)
+      .limit(limit)
+      .then(publications => {
+        Publication.find({$text: { $search: query.title } })
+          .count()
+          .then( count => res.send([...publications, count]) );
+      })
+      .catch(next)
     : Publication.find(query)
         .skip(skip)
         .limit(limit)
@@ -74,16 +75,29 @@ module.exports = {
       }
     })
 
-    Publication.find(advQuery)
-      .skip(skip)
-      .limit(limit)
-      .then(publications => {
-        Publication.find(advQuery)
-          .count()
-          .then( count => res.send([...publications, count]));
-      })
-      .catch(next);
-    // res.send(advQuery);
+    if(!!query.title) {
+      const title = query.title;
+      delete query.title;
+      Publication.find({...query, $text: {$search: title}  })
+        .skip(skip)
+        .limit(limit)
+        .then(publications => {
+          Publication.find({...query, $text: { $search: title } })
+            .count()
+            .then( count => res.send([...publications, count])) 
+        })
+        .catch(next);
+    } else {
+      Publication.find(advQuery)
+        .skip(skip)
+        .limit(limit)
+        .then(publications => {
+          Publication.find(advQuery)
+            .count()
+            .then( count => res.send([...publications, count]));
+        })
+        .catch(next);
+    }
   },
 
   create(req, res, next) {
