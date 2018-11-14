@@ -113,7 +113,6 @@ class Search extends React.Component {
     this.setState({
       [e.target.name]: e.target.value
     });
-    console.log('[NAME]', this.state.name);
   }
 
   toggleAdvSearch = () => {
@@ -121,7 +120,6 @@ class Search extends React.Component {
   }
 
   onSelectClick = (e) => {
-    console.log(e.target.value);
     this.setState({selectedType: e.target.value, advQuery: {}});
   }
 
@@ -140,7 +138,6 @@ class Search extends React.Component {
     this.setState({
       advQuery: newQuery
     });
-    console.log(this.state.advQuery);
   }
 
   onSubmit = e => {
@@ -150,7 +147,6 @@ class Search extends React.Component {
     this.props.advSearch({...this.state.advQuery, type: parseInt(this.state.selectedType)});
     this.toggleAdvSearch();
     this.setState({selectedType: -1});
-    console.log('[advQuery] ', this.state.advQuery);
   }
 
   render() {
@@ -182,7 +178,6 @@ class Search extends React.Component {
               const query = this.props.query;
               delete query.type;
               this.props.search(query); 
-              console.log('[SEARCH QUERY] ', this.props.query);
             }}>
             <input className="search" type="text" placeholder="Search" name="title" onChange={this.props.onSearchChange} />
             <button className="search-btn" >Search</button>
@@ -192,7 +187,7 @@ class Search extends React.Component {
             to="/add-publication" >+ Add</Link>
         </div>
           <div className={advSearchContainerClass}>
-            <div className={advSearchBtnClass} onClick={this.toggleAdvSearch}>Advanced Search</div>
+            <div className={advSearchBtnClass}><span onClick={this.toggleAdvSearch} style={{'cursor': 'pointer'}}>Advanced Search</span></div>
             
             <form className={advSearchFormClass} onSubmit={this.onSubmit}>
               <h1 className="adv-search-heading">Advanced Search</h1>

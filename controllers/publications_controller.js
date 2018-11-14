@@ -1,15 +1,15 @@
 const Publication = require('../models/Publication');
 
 module.exports = {
+  // Default search method
   index(req, res, next) {
     const { query } = req;
-    console.log(query);
     const skip = parseInt(query.skip);
     const limit = parseInt(query.limit);
     delete query.skip;
     delete query.limit;
-    console.log(query);
 
+    // Check if title in query and modify search query
     !!query.title ?
       Publication.find({$text: { $search: query.title } })
       .skip(skip)
@@ -31,6 +31,7 @@ module.exports = {
         .catch(next)
   },
 
+  // Advanced search method
   advIndex(req, res, next) {
     const { query } = req;
     const skip = parseInt(query.skip);
@@ -38,6 +39,7 @@ module.exports = {
     delete query.skip;
     delete query.limit;
 
+    // Build Advanced Query
     advQuery = {};
     Object.keys(query).map(field => {
       if(field.includes(' from') || field.includes(' to')) {
@@ -75,6 +77,7 @@ module.exports = {
       }
     })
 
+    // Check if title in query and modify query with $text search
     if(!!query.title) {
       const title = query.title;
       delete query.title;
@@ -100,6 +103,7 @@ module.exports = {
     }
   },
 
+  // Create method
   create(req, res, next) {
     const data = req.body;
     Publication.create(data)
@@ -107,10 +111,10 @@ module.exports = {
       .catch(next);
   },
 
+  // Update method
   edit(req, res, next) {
     const publicationId = req.params.id;
     const publicationProps = req.body;
-    console.log(publicationProps);
 
     Publication.update({_id: publicationId}, publicationProps)
       .then(() => Publication.findById({_id: publicationId}))
@@ -118,6 +122,7 @@ module.exports = {
       .catch(next);
   },
 
+  // Delete method
   delete(req, res, next) {
     const publicationId = req.params.id;
 
@@ -126,6 +131,7 @@ module.exports = {
       .catch(next);
   },
 
+  // Aggregate method to get publication counts in home page
   aggregate(req, res, next) {
     Publication.aggregate([{$group: {_id: '$type', count: {$sum: 1}}}])
       .sort({_id: 1})

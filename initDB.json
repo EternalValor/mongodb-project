@@ -110,5 +110,117 @@
     "institutions": ["Ecole Nationale ENSAF", "Congo/FSJ", "DI"],
     "coordinator": "El Kafi",
     "funding": 1000000
+  },
+  {
+    "type": 1,
+    "title": "Arabic text classification using new stemmer for feature selection and decision trees",
+    "authors": ["S. Bahassine", "A. Madani", "M. Kissi"],
+    "journal": "Journal of Engineering Science and Technology",
+    "volume": 12,
+    "issue": 6,
+    "year": 2017,
+    "pages": {
+      "begin": 1475,
+      "end": 1487
+    },
+    "IF": 0.66,
+    "url": "http://jestec.taylors.edu.my/Vol%2012%20issue%206%20June%202017/12_6_4.pdf"
+  },
+  {
+    "type": 2,
+    "title": "Optimization of makespan in job shop scheduling problem by golden ball algorithm",
+    "authors": ["F. Sayoti", "M. E. Riffi", "H. Labani"],
+    "journal": "Indonesian Journal of Electrical Engineering and Computer Science",
+    "volume": 4,
+    "issue": 3,
+    "year": 2016,
+    "pages": {
+      "begin": 542,
+      "end": 547
+    },
+    "url": "http://dx.doi.org/10.11591/ijeecs.v4.i3.pp542-547"
+  },
+  {
+    "type": 3,
+    "title": "Optimization of a shortest path algorithm",
+    "authors": ["F. Sayoti", "M. E. Riffi"],
+    "journal": "Indonesian Journal of Electrical Engineering and Computer Science",
+    "volume": 5,
+    "issue": 3,
+    "year": 2016,
+    "pages": {
+      "begin": 542,
+      "end": 547
+    },
+    "url": "http://dx.doi.org/10.11591/ijeecs.v4.i3.pp542-547"
+  },
+  {
+    "type": 4,
+    "title": "Ouvrage de recherche",
+    "authors": ["A. Madani", "M. E. Riffi"],
+    "publisher": "Research Publisher",
+    "location": "El Jadida",
+    "year": 2015,
+    "ISBN": "978-3-16-148410-0",
+    "legalDepo": "Bibliothèque nationale de Maroc"
+  },
+  {
+    "type": 5,
+    "chapTitle": "Title of chapter",
+    "title": "Ouvrage title",
+    "authors": ["H. Labani", "M. Kissi"],
+    "publisher": "Research Publisher",
+    "year": 2017,
+    "url": "http://www.researchgate.net"
+  },
+  {
+    "type": 6,
+    "title": "Facial Expression Recognition Using Decision Trees",
+    "authors": ["F. Z. Salmam", "A. Madani", "M. Kissi"],
+    "meetingName": "Computer Graphics, Imaging and Visualization: New Techniques and Trends, CGiV 2016",
+    "location": "Beni Mellal",
+    "date": "March 29- April 1st, 2016",
+    "url": "https://doi.org/10.1109/CGiV.2016.33"
+  },
+  {
+    "type": 7,
+    "title": "Compteur Intelligent : « 3addadCom »",
+    "authors": ["A. Aaroud"],
+    "meetingName": "COP22",
+    "commType": "Poster",
+    "location": "Marrakech"
+  },
+  {
+    "type": 8,
+    "title": "Brevet title",
+    "authors": ["H. Labani", "F. Z. Salmam"],
+    "references": ["Reference 1", "Reference 2", "Reference 3"],
+    "year": 2018,
+    "country": "Morocco"
+  },
+  {
+    "type": 9,
+    "title": "Computer Science Thesis",
+    "authors": ["H. Labani"],
+    "advisor": "H. Zouaki",
+    "jury": ["A. Madani", "M. Kissi", "M. E. Riffi"],
+    "date": "June 19th, 2007"
+  },
+  {
+    "type": 10,
+    "title": "R&D autour des phosphates",
+    "responsable": "Hatim Zineb & Abdelmjid El Moutaouakkil & A. AAROUD",
+    "domicil": "Faculté des sciences – El Jadida",
+    "fundingOrganisation": "Fondation OCP",
+    "length": "3 ans",
+    "endowment": 1298000
+  },
+  {
+    "type": 11,
+    "title": "Convention de Partenariat",
+    "convType": "Mobilité des Enseignant/Etudiants",
+    "institutions": ["Ecole Nationale ENSAF", "Congo/FSJ", "DI"],
+    "coordinator": "El Kafi",
+    "funding": 1000000
   }
 ]

@@ -39,16 +39,13 @@ class App extends Component {
   }
 
   search = (query, skip = 0) => { 
-    console.log('[SKIPVAL] ', skip)
     
     this.setState({skip});
-    console.log('[QUERY] ', query);
     axios.get('/api/publications', {
       params: {...query, skip, limit: this.state.limit}
     })
     .then(pubs => {
       const count = pubs.data.pop();
-      console.log(pubs.data);
       this.setState({totalCount: count});
       this.setState({ publications: pubs.data });
       this.countTypes();
@@ -72,7 +69,6 @@ class App extends Component {
     axios.delete(`/api/publications/${id}`)
       .then(res => {
           let newPubsState = this.state.publications.filter(pub => pub._id !== id);
-          console.log(newPubsState);
           this.setState({publications: newPubsState});
       })
       .catch(err => console.log(err));
@@ -141,7 +137,6 @@ class App extends Component {
 
     } else query[e.target.name] = e.target.value;
     this.setState({query});
-    console.log(query);
   }
 
   resetQuery = () => {
@@ -158,7 +153,6 @@ class App extends Component {
       skip = this.state.skip + this.state.limit;
     }
     this.setState({skip});
-    console.log('[pageRight QUERY] ', this.state.query, this.state.skip);
     this.advSearch(this.state.query, skip);
   }
 
@@ -168,7 +162,6 @@ class App extends Component {
       skip = this.state.skip - this.state.limit;
     }
     this.setState({skip});
-    console.log('[pageRight QUERY] ', this.state.query, this.state.skip);
     this.advSearch(this.state.query, skip);
   }
 
