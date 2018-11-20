@@ -199,7 +199,8 @@ class AddPub extends React.Component {
             {
               this.state.selectedType > 0 ?
                 <div>
-                  <span className="input-title">Title: </span><input 
+                  <span className="input-title">Title:<span style={{"color": "red"}}>*</span></span>
+                  <input 
                       type="text" 
                       name="title" 
                       value={this.state.pubToAdd.title ? `${this.state.pubToAdd.title}` : ''}

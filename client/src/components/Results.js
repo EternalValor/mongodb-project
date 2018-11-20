@@ -93,7 +93,8 @@ class Results extends React.Component {
                         updatedPub={this.state.updatedPub}
                         updateHandler={this.props.updateHandler}
                         types={this.props.types}
-                        showPopup={this.props.showPopup} />
+                        showPopup={this.props.showPopup}
+                        loggedIn={this.props.loggedIn} />
                         )
                   : <div className="no-results">Oops we couldn't retrieve any results, please try again.</div>
                 }

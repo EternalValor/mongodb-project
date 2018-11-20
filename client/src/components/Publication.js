@@ -15,31 +15,42 @@ const publication = (props) => {
   return (
     <div className={pubClass} >
       <div className="publication__buttons">
-        <svg 
-          className="delete"
-          style={{"width":'24px', "height": '24px'}} 
-          viewBox="0 0 24 24"
-          onClick={() => {
-            props.delete(props.publication._id);
-            props.showPopup(`${props.publication.title.slice(0, 15)}... successfully deleted!`, true)
-          }}>
-          <path 
-            fill="#f96d6d" 
-            d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
-        </svg>
+        {
+          props.loggedIn ? 
+            <svg 
+              className="delete"
+              style={{"width":'24px', "height": '24px'}} 
+              viewBox="0 0 24 24"
+              onClick={() => {
+                props.delete(props.publication._id);
+                props.showPopup(`${props.publication.title.slice(0, 15)}... successfully deleted!`, true)
+              }}>
+              <path 
+                fill="#f96d6d" 
+                d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
+            </svg>
+          : null
+        }
+        
           &nbsp;&nbsp;
-        <svg 
-          className="update"
-          style={{"width":'24px',"height":'24px'}} 
-          viewBox="0 0 24 24"
-          onClick={() => {
-            props.beingUpdated === props.index ? props.update(-1, {}) : props.update(props.index, props.publication);
-            if(!props.expanded) props.onClick(props.index);
-          }}>
-          <path 
-            fill="#000000" 
-            d="M5,3C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19H5V5H12V3H5M17.78,4C17.61,4 17.43,4.07 17.3,4.2L16.08,5.41L18.58,7.91L19.8,6.7C20.06,6.44 20.06,6 19.8,5.75L18.25,4.2C18.12,4.07 17.95,4 17.78,4M15.37,6.12L8,13.5V16H10.5L17.87,8.62L15.37,6.12Z" />
-        </svg>
+
+        {
+          props.loggedIn ?
+            <svg 
+              className="update"
+              style={{"width":'24px',"height":'24px'}} 
+              viewBox="0 0 24 24"
+              onClick={() => {
+                props.beingUpdated === props.index ? props.update(-1, {}) : props.update(props.index, props.publication);
+                if(!props.expanded) props.onClick(props.index);
+              }}>
+              <path 
+                fill="#000000" 
+                d="M5,3C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19H5V5H12V3H5M17.78,4C17.61,4 17.43,4.07 17.3,4.2L16.08,5.41L18.58,7.91L19.8,6.7C20.06,6.44 20.06,6 19.8,5.75L18.25,4.2C18.12,4.07 17.95,4 17.78,4M15.37,6.12L8,13.5V16H10.5L17.87,8.62L15.37,6.12Z" />
+            </svg>
+          : null
+        }
+        
       </div>
       <h1 className="publication__heading">
         {
@@ -65,16 +76,18 @@ const publication = (props) => {
                     field !== '__v' ?
                       exclude.indexOf(field) === -1 ?
                         props.publication[field].length !== 0 ?
-                          <div 
-                            key={field}
-                            className="publication__body__field" >
-                            <span className="field-title">{field}</span>:&nbsp;
-                            { field !== 'pages' ? 
-                                  typeof props.publication[field] === "object" ?  
-                                      props.publication[field].join(", ") : props.publication[field]
-                              : `${props.publication[field].begin} - ${props.publication[field].end}`
-                            }
-                          </div>
+                          field !== 'url' ?
+                            <div 
+                              key={field}
+                              className="publication__body__field" >
+                              <span className="field-title">{field}</span>:&nbsp;
+                              { field !== 'pages' ? 
+                                    typeof props.publication[field] === "object" ?  
+                                        props.publication[field].join(", ") : props.publication[field]
+                                : `${props.publication[field].begin} - ${props.publication[field].end}`
+                              }
+                            </div>
+                          : <a href={props.publication[field]}>Check out the full publication here.</a>
                         : null
                       : null
                     : null

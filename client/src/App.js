@@ -5,6 +5,8 @@ import Results from './components/Results';
 import Home from './components/Home';
 import AddPub from './components/AddPub';
 import Popup from './components/Popup';
+import Signup from './components/Signup';
+import Signin from './components/Signin';
 import './App.css';
 
 class App extends Component {
@@ -176,6 +178,35 @@ class App extends Component {
     }, 3000);
   }
 
+  // User authentication methods
+  toggleLoggedIn = (username) => {
+    this.setState({ 
+      loggedIn: !this.state.loggedIn,
+      username
+    });
+  }
+
+  handleLogout = () => {
+    this.toggleLoggedIn('');
+    window.localStorage.setItem('token', null);
+  }
+
+  componentDidMount() {
+    let token = window.localStorage.getItem('token');
+    if(token !== null) {
+      console.log("[ONLOAD TOKEN] ", token);
+      axios.post(`/signin/${token}`)
+        .then(res => {
+          const data = res.data;
+          console.log("[DATA FROM ONLOAD REQUEST] ", data);
+          if(data.valid) {
+            this.toggleLoggedIn(data.username);
+            window.localStorage.setItem('token', data.token);
+          }
+        })
+    }
+  }
+
   render() {
     return (
       <div className="App">   
@@ -198,7 +229,10 @@ class App extends Component {
                                   onSearchChange={this.onSearchChange}
                                   query={this.state.query}
                                   resetQuery={this.resetQuery}
-                                  setQuery={this.setQuery} />} />
+                                  setQuery={this.setQuery}
+                                  loggedIn={this.state.loggedIn}
+                                  handleLogout={this.handleLogout} 
+                                  username={this.state.username} />} />
             <Route 
               path="/results"
               render={props => <Results {...props}
@@ -218,7 +252,10 @@ class App extends Component {
                                   to={this.state.skip + this.state.publications.length}
                                   pageRight={this.pageRight}
                                   pageLeft={this.pageLeft}
-                                  showPopup={this.showPopup} />}  />
+                                  showPopup={this.showPopup}
+                                  loggedIn={this.state.loggedIn}
+                                  handleLogout={this.handleLogout}
+                                  username={this.state.username} />}  />
             <Route 
               path="/add-publication"
               render={props => <AddPub {...props}
@@ -229,7 +266,43 @@ class App extends Component {
                                         addPublication={this.addPublication}
                                         resetQuery={this.resetQuery}
                                         setQuery={this.setQuery}
-                                        showPopup={this.showPopup} />} />
+                                        showPopup={this.showPopup}
+                                        loggedIn={this.state.loggedIn}
+                                        handleLogout={this.handleLogout}
+                                        username={this.state.username} />} />
+
+            <Route 
+              exact 
+              path="/signup" 
+              render={
+                props => <Signup 
+                            {...props}
+                            setQuery={this.setQuery}
+                            search={this.search}
+                            advSearch={this.advSearch}
+                            resetQuery={this.resetQuery}
+                            query={this.state.query}
+                            handleLogout={this.handleLogout}
+                            username={this.state.username}
+                            toggleLoggedIn={this.toggleLoggedIn} />
+            } />
+
+            <Route 
+              exact 
+              path="/signin" 
+              render={
+                props => <Signin 
+                            {...props}
+                            setQuery={this.setQuery}
+                            search={this.search}
+                            advSearch={this.advSearch}
+                            resetQuery={this.resetQuery}
+                            query={this.state.query}
+                            handleLogout={this.handleLogout}
+                            username={this.state.username}
+                            toggleLoggedIn={this.toggleLoggedIn} />
+            } />
+
           </Switch>
         </Router>
       </div>

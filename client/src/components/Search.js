@@ -182,9 +182,29 @@ class Search extends React.Component {
             <input className="search" type="text" placeholder="Search" name="title" onChange={this.props.onSearchChange} />
             <button className="search-btn" >Search</button>
           </form>
-          <Link 
-            className="add-btn"
-            to="/add-publication" >+ Add</Link>
+          {
+            this.props.loggedIn ?
+              <span>
+                <Link 
+                  className="add-btn"
+                  to="/add-publication" >+ Add</Link>
+                <span className="username">{this.props.username}</span>
+                
+                <Link 
+                  to="/"
+                  className="log-out"
+                  onClick={this.props.handleLogout}
+                  >
+                    <svg style={{"width":'18px', "height":'18px'}} viewBox="0 0 24 24">
+                      <path fill="red" d="M17,17.25V14H10V10H17V6.75L22.25,12L17,17.25M13,2A2,2 0 0,1 15,4V8H13V4H4V20H13V16H15V20A2,2 0 0,1 13,22H4A2,2 0 0,1 2,20V4A2,2 0 0,1 4,2H13Z" />
+                    </svg>
+                  </Link>
+              </span>
+            :
+            <span style={{"fontSize": "1.8rem"}}>
+              <Link className="sign-btn" to="/signin" >Sign in </Link>
+            </span>
+          }
         </div>
           <div className={advSearchContainerClass}>
             <div className={advSearchBtnClass}><span onClick={this.toggleAdvSearch} style={{'cursor': 'pointer'}}>Advanced Search</span></div>
