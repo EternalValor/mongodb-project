@@ -62,7 +62,7 @@
   width: 10rem;
   padding: .85rem 1.5rem;
   position: absolute;
-  top: 0; 
+  top: 0;
   left: calc(50% + 37rem);
   text-align: center;
   text-decoration: none;
@@ -84,7 +84,7 @@
 .logo-subtext {
   font-size: 1.2rem;
   display: inline-block;
-  margin-left:  3.9rem;
+  margin-left: 3.9rem;
   color: #7F7F7F;
 }
 
@@ -166,7 +166,7 @@
   font-size: 1.5rem;
   outline: none;
   margin-bottom: 2rem;
-  border-radius: 3px;  
+  border-radius: 3px;
 }
 
 .adv-input-title {
@@ -183,7 +183,7 @@
   margin-bottom: 1.5rem;
   width: 45rem;
   border: 1px solid #777;
-  border-radius: 3px;  
+  border-radius: 3px;
 }
 
 
@@ -200,7 +200,7 @@
   margin-right: 1.5rem;
   width: 15.5rem;
   border: 1px solid #777;
-  border-radius: 2px; 
+  border-radius: 2px;
 }
 
 .adv-number-title {
@@ -235,7 +235,7 @@
   content: '';
   display: inline-block;
   margin-right: .5rem;
-  width: 1rem; 
+  width: 1rem;
   height: 1rem;
   border-radius: 50%;
   background: rgb(81, 243, 81);

@@ -1,8 +1,7 @@
 const PublicationsController = require('../controllers/publications_controller');
 const UsersController = require('../controllers/users_controller');
 
-module.exports = (app) => {
-  
+module.exports = app => {
   // API routes
   app.get('/api/publications', PublicationsController.index);
   app.get('/api/publications/count', PublicationsController.aggregate);
@@ -15,4 +14,4 @@ module.exports = (app) => {
   app.post('/signup', UsersController.signup);
   app.post('/signin', UsersController.signin);
   app.post('/signin/:id', UsersController.auth);
-}
+};

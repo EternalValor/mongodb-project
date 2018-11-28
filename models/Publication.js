@@ -38,15 +38,12 @@ const PublicationSchema = new Schema({
   fundingOrganisation: String,
   length: String, // Duree
   endowment: Number, // Dotation
-  convType: String, // Type de la convention 
+  convType: String, // Type de la convention
   institutions: [String],
   coordinator: String,
   funding: Number
 });
 
-
 const Publication = mongoose.model('publication', PublicationSchema);
-
-
 
 module.exports = Publication;
